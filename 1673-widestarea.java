@@ -1,5 +1,5 @@
 
-class Solution {
+class Solutio {
     public int maxWidthOfVerticalArea(int[][] points) {
         Arrays.sort(points, (a, b) -> Integer.compare(a[0], b[0]));
 

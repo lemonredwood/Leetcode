@@ -1,29 +1,9 @@
 //My partial solution(32/46):
 class Solution {
     public int evaluate(int a,int b,int flag){
-        if(flag==0){
-            System.out.println("add:"+a+b);
-            return a+b;
-        }
-        else if(flag==1){
-            System.out.println("sub:"+(a-b));
-            return a-b;
-        }
-        else{
-            System.out.println("upgrad:"+(10*a+b));
-            return (10*a)+b;
-        }
-    }
-    public boolean isDigit(char c){
-        if(c>='0' && c<='9')return true;
-        return false;
-    }
-    public boolean isOperator(char c){
-        if(c=='+' || c=='-'){
-            System.out.println("yay");
-            return true;
-        }
-        return false;
+        if(flag==0) return a+b;
+        else if(flag==1) return a-b;
+        else return (10*a)+b;
     }
     public int calculate(String s) {
         s=s.trim();
@@ -36,16 +16,17 @@ class Solution {
         Stack<Character> op = new Stack();
         for(int i=0;i<s.length();i++){
             char c = s.charAt(i);
-            if(isDigit(c)){
+            if(Character.isDigit(c)){
                 count++;
                 int y = Integer.parseInt(c+"");
                 st.push(y);
                 if(i<s.length()-1){
-                    if(isDigit(s.charAt(i+1))){
+                    if(Character.isDigit(s.charAt(i+1))){
                         if(!op.isEmpty()){
-                            int x = st.pop();
+                            int b = st.pop();
+                            int a = st.pop();
                             char nop = op.peek();
-                            int r = evaluate(x,y,2);
+                            int r = evaluate(a,b,2);
                             st.push(r);
                             op.push(nop);
                             continue;
@@ -56,14 +37,9 @@ class Solution {
                     st.pop();
                     int x = st.pop();
                     char o = op.pop();
-                    if(o=='+'){
-                        int a = evaluate(x,y,0);
-                        st.push(a);
-                    }
-                    else if(o=='-'){
-                        int a = evaluate(x,y,1);
-                        st.push(a);
-                    }
+                    if(o=='+') st.push(evaluate(x,y,0));
+
+                    else if(o=='-') st.push(evaluate(x,y,1));
                 }
             }
             else if(sign==1 && (c!=')' && c!='(' && c!=' ')){
@@ -82,8 +58,6 @@ class Solution {
                 }
             }
             else if(c==')')sign=0;
-            System.out.println(st);
-            System.out.println(op);
         }           
         if(count==s.length()){
             int ans = Integer.parseInt(s);

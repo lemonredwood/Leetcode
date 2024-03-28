@@ -9,9 +9,7 @@ class Solution {
                 sum+=nums[j];
                 j++;
             }
-            if(ans>j-i+1){
-                ans=j-i+1;
-            }
+            if(ans>j-i+1)ans=j-i+1;
             sum-=nums[i];
             i++;
         }
